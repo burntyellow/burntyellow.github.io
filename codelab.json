@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2022-01-26T11:00:26-05:00",
+  "id": "h2p-user-guide",
+  "duration": 0,
+  "title": "CRC H2P Cluster User Guide",
+  "summary": "CRC H2P Cluster User Guide",
+  "source": "h2p_documentation.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "codelab",
+    "markdown"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": "h2p-user-guide"
+}
