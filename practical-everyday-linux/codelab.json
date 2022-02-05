@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2022-02-02T12:36:03-05:00",
+  "id": "practical-everyday-linux",
+  "duration": 0,
+  "title": "Practical Everyday Linux",
+  "summary": "Tools and tricks for maximizing your utilization of Pitt’s advanced computing resources.",
+  "source": "practical_everyday_linux.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "codelab",
+    "markdown"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": "practical-everyday-linux"
+}

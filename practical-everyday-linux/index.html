@@ -1,0 +1,769 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Practical Everyday Linux</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="practical-everyday-linux"
+                  title="Practical Everyday Linux"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Intro" duration="0">
+        <p>This workshop is a follow up to the Cluster Training Workshop demonstrating tools and tricks for maximizing your utilization of advanced computing resources. The workshop will provide hands-on experience with intermediate Linux commands, Linux environment settings, and bash scripting examples that will make your computational research projects more efficient, more organized, and more enjoyable.</p>
+<p><strong>Prerequisite:</strong> must have completed the Cluster Training Workshop or have previous experience with the Linux command line and text editing.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Everyday Linux commands" duration="0">
+        <h2 is-upgraded>Change to $HOME and print working directory</h2>
+<pre><code language="language-bash" class="language-bash">[gnowmik@login1 ~]$ cd
+[gnowmik@login1 ~]$ pwd
+/ihome/kwong/gnowmik
+[gnowmik@login1 ~]$
+</code></pre>
+<h2 is-upgraded>List content of current working directory</h2>
+<pre><code language="language-bash" class="language-bash">[gnowmik@login1 ~]$ ls
+CRC  Desktop  mocvnhlysm_1N.24C_OMPI_SMP  mocvnhlysm_1titanX.1C  mocvnhlysm_1v100.1C  mocvnhlysm_2GTX1080.2C  zzz_cleanmeup
+[gnowmik@login1 ~]$
+</code></pre>
+<h2 is-upgraded>Change to another directory</h2>
+<pre><code language="language-bash" class="language-bash">[gnowmik@login1 ~]$ cd mocvnhlysm_1N.24C_OMPI_SMP
+[gnowmik@login1 mocvnhlysm_1N.24C_OMPI_SMP]$ pwd
+/ihome/kwong/gnowmik/mocvnhlysm_1N.24C_OMPI_SMP
+[gnowmik@login1 mocvnhlysm_1N.24C_OMPI_SMP]$ ls
+amber.slurm  logfile  md.in  mocvnhlysm.crd  mocvnhlysm.mdcrd  mocvnhlysm.nfo  mocvnhlysm.out  mocvnhlysm.rst  mocvnhlysm.top  slurm-5105649.out
+[gnowmik@login1 mocvnhlysm_1N.24C_OMPI_SMP]$
+</code></pre>
+<h2 is-upgraded>Copy a file</h2>
+<pre><code language="language-bash" class="language-bash">[gnowmik@login1 mocvnhlysm_1N.24C_OMPI_SMP]$ cp amber.slurm amber.slurm-new
+[gnowmik@login1 mocvnhlysm_1N.24C_OMPI_SMP]$ ls
+amber.slurm      logfile  mocvnhlysm.crd    mocvnhlysm.nfo  mocvnhlysm.rst  slurm-5105649.out
+amber.slurm-new  md.in    mocvnhlysm.mdcrd  mocvnhlysm.out  mocvnhlysm.top
+[gnowmik@login1 mocvnhlysm_1N.24C_OMPI_SMP]$
+</code></pre>
+<h2 is-upgraded>Rename a file</h2>
+<pre><code language="language-bash" class="language-bash">[gnowmik@login1 mocvnhlysm_1N.24C_OMPI_SMP]$ mv amber.slurm amber.slurm-old
+[gnowmik@login1 mocvnhlysm_1N.24C_OMPI_SMP]$ ls
+amber.slurm-new  logfile  mocvnhlysm.crd    mocvnhlysm.nfo  mocvnhlysm.rst  slurm-5105649.out
+amber.slurm-old  md.in    mocvnhlysm.mdcrd  mocvnhlysm.out  mocvnhlysm.top
+[gnowmik@login1 mocvnhlysm_1N.24C_OMPI_SMP]$
+</code></pre>
+<h2 is-upgraded>Delete a file</h2>
+<pre><code language="language-bash" class="language-bash">[gnowmik@login1 mocvnhlysm_1N.24C_OMPI_SMP]$ rm amber.slurm-new
+[gnowmik@login1 mocvnhlysm_1N.24C_OMPI_SMP]$ ls
+amber.slurm-old  logfile  md.in  mocvnhlysm.crd  mocvnhlysm.mdcrd  mocvnhlysm.nfo  mocvnhlysm.out  mocvnhlysm.rst  mocvnhlysm.top  slurm-5105649.out
+[gnowmik@login1 mocvnhlysm_1N.24C_OMPI_SMP]$ mv amber.slurm-old  amber.slurm
+[gnowmik@login1 mocvnhlysm_1N.24C_OMPI_SMP]$ ls
+amber.slurm  logfile  md.in  mocvnhlysm.crd  mocvnhlysm.mdcrd  mocvnhlysm.nfo  mocvnhlysm.out  mocvnhlysm.rst  mocvnhlysm.top  slurm-5105649.out
+[gnowmik@login1 mocvnhlysm_1N.24C_OMPI_SMP]$
+</code></pre>
+<h2 is-upgraded>Go up one directory</h2>
+<pre><code language="language-bash" class="language-bash">[gnowmik@login1 mocvnhlysm_1N.24C_OMPI_SMP]$ pwd
+/ihome/kwong/gnowmik/mocvnhlysm_1N.24C_OMPI_SMP
+[gnowmik@login1 mocvnhlysm_1N.24C_OMPI_SMP]$ cd ..
+[gnowmik@login1 ~]$ pwd
+/ihome/kwong/gnowmik
+[gnowmik@login1 ~]$
+</code></pre>
+<h2 is-upgraded>Recursively copy a directory</h2>
+<pre><code language="language-bash" class="language-bash">[gnowmik@login1 ~]$ ls
+CRC  Desktop  mocvnhlysm_1N.24C_OMPI_SMP  mocvnhlysm_1titanX.1C  mocvnhlysm_1v100.1C  mocvnhlysm_2GTX1080.2C  zzz_cleanmeup
+[gnowmik@login1 ~]$ cp -rp mocvnhlysm_1v100.1C mocvnhlysm_1v100.1C-COPY
+[gnowmik@login1 ~]$ ls
+CRC  Desktop  mocvnhlysm_1N.24C_OMPI_SMP  mocvnhlysm_1titanX.1C  mocvnhlysm_1v100.1C  mocvnhlysm_1v100.1C-COPY  mocvnhlysm_2GTX1080.2C  zzz_cleanmeup
+[gnowmik@login1 ~]$
+</code></pre>
+<h2 is-upgraded>Delete a directory</h2>
+<pre><code language="language-bash" class="language-bash">[gnowmik@login1 ~]$ ls
+CRC  Desktop  mocvnhlysm_1N.24C_OMPI_SMP  mocvnhlysm_1titanX.1C  mocvnhlysm_1v100.1C  mocvnhlysm_2GTX1080.2C  zzz_cleanmeup
+[gnowmik@login1 ~]$ cp -rp mocvnhlysm_1v100.1C mocvnhlysm_1v100.1C-COPY
+[gnowmik@login1 ~]$ ls
+CRC  Desktop  mocvnhlysm_1N.24C_OMPI_SMP  mocvnhlysm_1titanX.1C  mocvnhlysm_1v100.1C  mocvnhlysm_1v100.1C-COPY  mocvnhlysm_2GTX1080.2C  zzz_cleanmeup
+[gnowmik@login1 ~]$ rmdir mocvnhlysm_1v100.1C-COPY
+rmdir: failed to remove ‘mocvnhlysm_1v100.1C-COPY&#39;: Directory not empty
+[gnowmik@login1 ~]$ ls mocvnhlysm_1v100.1C-COPY/*
+mocvnhlysm_1v100.1C-COPY/amber.slurm  mocvnhlysm_1v100.1C-COPY/mocvnhlysm.crd    mocvnhlysm_1v100.1C-COPY/mocvnhlysm.out
+mocvnhlysm_1v100.1C-COPY/gpus-1.out   mocvnhlysm_1v100.1C-COPY/mocvnhlysm.mdcrd  mocvnhlysm_1v100.1C-COPY/mocvnhlysm.rst
+mocvnhlysm_1v100.1C-COPY/md.in        mocvnhlysm_1v100.1C-COPY/mocvnhlysm.nfo    mocvnhlysm_1v100.1C-COPY/mocvnhlysm.top
+[gnowmik@login1 ~]$ rm mocvnhlysm_1v100.1C-COPY/*
+[gnowmik@login1 ~]$ rmdir mocvnhlysm_1v100.1C-COPY
+[gnowmik@login1 ~]$
+</code></pre>
+<p>You can only delete empty directories. The <em>star</em> is a wildcard character that signifies <em>everything</em>.</p>
+<h2 is-upgraded>Recursively delete a directory (this is dangerous; only use when comfortable with the Linux commandline).</h2>
+<pre><code language="language-bash" class="language-bash">[gnowmik@login1 ~]$ ls
+CRC  Desktop  mocvnhlysm_1N.24C_OMPI_SMP  mocvnhlysm_1titanX.1C  mocvnhlysm_1v100.1C  mocvnhlysm_2GTX1080.2C  zzz_cleanmeup
+[gnowmik@login1 ~]$ cp -rp mocvnhlysm_1v100.1C mocvnhlysm_1v100.1C-COPY
+[gnowmik@login1 ~]$ ls
+CRC  Desktop  mocvnhlysm_1N.24C_OMPI_SMP  mocvnhlysm_1titanX.1C  mocvnhlysm_1v100.1C  mocvnhlysm_1v100.1C-COPY  mocvnhlysm_2GTX1080.2C  zzz_cleanmeup
+[gnowmik@login1 ~]$ rm -rf  mocvnhlysm_1v100.1C mocvnhlysm_1v100.1C-COPY
+[gnowmik@login1 ~]$ ls
+CRC  Desktop  mocvnhlysm_1N.24C_OMPI_SMP  mocvnhlysm_1titanX.1C  mocvnhlysm_2GTX1080.2C  zzz_cleanmeup
+[gnowmik@login1 ~]$
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Setting up SSH keys" duration="0">
+        <p>First, we will set up passwordless ssh on the cluster so that we can directly ssh to assigned compute nodes for monitoring or debugging</p>
+<pre><code language="language-bash" class="language-bash">[gnowmik@login1 ~]$ ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/ihome/kwong/gnowmik/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /ihome/kwong/gnowmik/.ssh/id_rsa.
+Your public key has been saved in /ihome/kwong/gnowmik/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:WmS8u8NqHi6Z3XgUxlz+Enlzlovi0h2MXqeKMC7UHB8 gnowmik@login1.crc.pitt.edu
+The key&#39;s randomart image is:
++---[RSA 2048]----+
+|                 |
+|       .  .      |
+|       o+o .   . |
+|      .oE.+ o +  |
+|     o +So * = . |
+|    . ooo.+ * o  |
+|   . +==.+ = +   |
+|    =o++*o+ o    |
+|     ==ooo..     |
++----[SHA256]-----+
+[gnowmik@login1 ~]$ cat .ssh/id_rsa.pub &gt; .ssh/authorized_keys
+[gnowmik@login1 ~]$
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Aliases of common commands" duration="0">
+        <p>You can add aliases (also called <em>shortcuts</em>) to your <code>~/.bashrc</code> file using the following syntax</p>
+<pre><code language="language-bash" class="language-bash">alias shortcut=&#34;canonical Linux command&#34;
+</code></pre>
+<p>For example, I have the following in my <code>~/.bashrc</code> file</p>
+<pre><code language="language-code" class="language-code">alias src=&#34;source $HOME/.bashrc&#34;
+alias sinfo=&#39;sinfo -M mpi,gpu,smp&#39;
+alias jobs=&#34;squeue -M mpi,gpu,smp -u $USER&#34;
+alias h2p=&#34;ssh -X login1.crc.pitt.edu&#34;
+</code></pre>
+<p>If you just added aliases to your <code>~/.bashrc</code> file, you need to <code>source</code> it before the <em>shortcuts</em> come into existence</p>
+<pre><code language="language-bash" class="language-bash">source ~/.bashrc
+</code></pre>
+<p>Your <code>~/.bashrc</code> file is an initialization file that gets automatically <em>sourced</em> when you open a new session on the Linux server.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="How to set up PATHS" duration="0">
+        <p>If you have done any building of software, you might have encountered the phrase <em>add the executable to your PATHs</em>. What exactly does that mean? Linux provides the user the flexibility to install software in any arbitrary directory path called the <code>--prefix</code>. If you choose to install software in a nonstandard PATH, you will need to tell the Linux OS where everything is located. This is what is meant by <em>adding to your PATHs</em>.</p>
+<p>The typical PATH definitions and syntax for <em>adding to the PATH</em> are</p>
+<ul>
+<li>PATH –&gt; location of executables</li>
+</ul>
+<pre><code language="language-bash" class="language-bash">export PATH=~/good_software/bin:$PATH
+</code></pre>
+<ul>
+<li>LD_LIBRARY_PATH –&gt; location of libraries</li>
+</ul>
+<pre><code language="language-bash" class="language-bash">export LD_LIBRARY_PATH=~/good_software/lib64:$LD_LIBRARY_PATH
+</code></pre>
+<ul>
+<li>INCLUDE_PATH  –&gt; location of header files</li>
+</ul>
+<pre><code language="language-bash" class="language-bash">export INCLUDE_PATH=~/good_software/include:$INCLUDE_PATH
+</code></pre>
+<ul>
+<li>MANPATH  –&gt; location of manual pages</li>
+</ul>
+<pre><code language="language-bash" class="language-bash">export MAN_PATH=~/good_software/share/man:$MAN_PATH
+</code></pre>
+<p class="image-container"><img alt="prefix_paths" src="img/493e7b28149cc9a0.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Making sense of software modules" duration="0">
+        <p>The conventional CRC wisdom for finding software is to</p>
+<pre><code language="language-bash" class="language-bash">module spider &lt;stuff&gt;
+</code></pre>
+<p>followed by</p>
+<pre><code language="language-bash" class="language-bash">module spider &lt;specific stuff&gt;
+</code></pre>
+<p>Then you do <code>module load &ltany dependencies&gt</code> followed by <code>module load &ltspecific stuff&gt</code>. Here&#39;s an example</p>
+<ul>
+<li>Load <code>&ltstuff&gt</code></li>
+</ul>
+<pre><code language="language-bash" class="language-bash">[gnowmik@login1 ~]$ module spider gcc
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  gcc:
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    Description:
+      The GNU C/C++ Compiler
+
+     Versions:
+        gcc/4.4.0
+        gcc/4.7.4
+        gcc/4.8.5
+        gcc/4.9.4
+        gcc/5.4.0
+        gcc/6.3.0
+        gcc/7.3.0
+        gcc/8.2.0
+        gcc/9.2.0
+        gcc/10.2.0
+
+     Other possible modules matches:
+        petsc-gcc
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  To find other possible module matches do:
+      module -r spider &#39;.*gcc.*&#39;
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  For detailed information about a specific &#34;gcc&#34; module (including how to load the modules) use the module&#39;s full name.
+  For example:
+
+     $ module spider gcc/9.2.0
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+[gnowmik@login1 ~]$
+</code></pre>
+<ul>
+<li>Load <code>&ltspecific stuff&gt</code></li>
+</ul>
+<pre><code language="language-bash" class="language-bash">[gnowmik@login1 ~]$ module spider gcc/8.2.0
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  gcc: gcc/8.2.0
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    Description:
+      The GNU C/C++ Compiler
+
+     Other possible modules matches:
+        petsc-gcc
+
+    This module can be loaded directly: module load gcc/8.2.0
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  To find other possible module matches do:
+      module -r spider &#39;.*gcc/8.2.0.*&#39;
+
+
+[gnowmik@login1 ~]$
+</code></pre>
+<p>The Environment Modules work well on CRC but what exactly is <code>lmod</code> doing? To get an idea of what instructions <code>lmod</code> is executing, you can use <code>module show &ltstuff&gt</code></p>
+<pre><code language="language-bash" class="language-bash">[gnowmik@login1 ~]$ module show gcc/8.2.0
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   /ihome/crc/modules/Core/gcc/8.2.0.lua:
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+prepend_path(&#34;MODULEPATH&#34;,&#34;/ihome/crc/modules/Compiler/gcc/8.2.0&#34;)
+whatis(&#34;Name: gcc&#34;)
+whatis(&#34;Version: 8.2.0&#34;)
+whatis(&#34;Description: The GNU C/C++ Compiler&#34;)
+whatis(&#34;Keywords: GNU Compiler Suite&#34;)
+whatis(&#34;URL:&#34;)
+whatis(&#34;-&gt; gcc: https://gcc.gnu.org/onlinedocs/gcc-8.2.0/gcc&#34;)
+whatis(&#34;-&gt; g++: https://gcc.gnu.org/onlinedocs/gcc-8.2.0/libstdc++/manual&#34;)
+whatis(&#34;-&gt; gfortran: https://gcc.gnu.org/onlinedocs/gcc-8.2.0/gfortran&#34;)
+prepend_path(&#34;GCC_ROOT&#34;,&#34;/ihome/crc/install/gcc/8.2.0&#34;)
+prepend_path(&#34;PATH&#34;,&#34;/ihome/crc/install/gcc/8.2.0/bin&#34;)
+prepend_path(&#34;CPATH&#34;,&#34;/ihome/crc/install/gcc/8.2.0/include&#34;)
+prepend_path(&#34;INCLUDE_PATH&#34;,&#34;/ihome/crc/install/gcc/8.2.0/include&#34;)
+prepend_path(&#34;LIBRARY_PATH&#34;,&#34;/ihome/crc/install/gcc/8.2.0/lib64&#34;)
+prepend_path(&#34;LD_LIBRARY_PATH&#34;,&#34;/ihome/crc/install/gcc/8.2.0/lib64&#34;)
+prepend_path(&#34;LD_RUN_PATH&#34;,&#34;/ihome/crc/install/gcc/8.2.0/lib64&#34;)
+prepend_path(&#34;MANPATH&#34;,&#34;/ihome/crc/install/gcc/8.2.0/share/man&#34;)
+prepend_path(&#34;LIBPATH&#34;,&#34;/ihome/crc/install/gcc/8.2.0/lib/gcc/x86_64-pc-linux-gnu/8.2.0&#34;)
+prepend_path(&#34;LIBRARY_PATH&#34;,&#34;/ihome/crc/install/gcc/8.2.0/lib/gcc/x86_64-pc-linux-gnu/8.2.0&#34;)
+prepend_path(&#34;LD_LIBRARY_PATH&#34;,&#34;/ihome/crc/install/gcc/8.2.0/lib/gcc/x86_64-pc-linux-gnu/8.2.0&#34;)
+
+[gnowmik@login1 ~]$
+</code></pre>
+<p>Notice that <code>lmod</code> has variables defined for <code>PATH</code>, <code>LD_LIBRARY_PATH</code>, <code>INCLUDE_PATH</code>, and <code>MAN_PATH</code>. These are the same environment variables we discussed earlier in the <strong>How to set up PATHs</strong> section. What is happening is that the <code>lmod</code> configuration file for the <code>gcc/8.2.0</code> package <em>prepending</em> the installation PREFIX directory to the PATHs. <code>lmod</code> is essentially updating the <code>PATH</code> environment variable by executing</p>
+<pre><code language="language-bash" class="language-bash">export PATH=/ihome/crc/install/gcc/8.2.0/bin:$PATH
+</code></pre>
+<p><strong>Conclusion: </strong><code>lmod</code> is a simple-to-use utility for modifying PATHs. When you unload a pacakge wth</p>
+<pre><code language="language-bash" class="language-bash">module unload gcc/8.2.0.
+</code></pre>
+<p><code>lmod</code> returns the environment variables back to the state before the <code>module load gcc/8.2.0</code> command.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="How to build code" duration="0">
+        <h2 is-upgraded>To use the GNU compilers</h2>
+<ol type="1">
+<li>Load the modules by executing the following on the commandline</li>
+</ol>
+<pre><code language="language-bash" class="language-bash">module purge
+module load gcc/5.4.0
+module load openmpi/3.0.0
+</code></pre>
+<ol type="1" start="2">
+<li>Compiler invocation</li>
+</ol>
+<ul>
+<li>C Compiler: <code>gcc</code></li>
+<li>C++ Compiler: g++</li>
+<li>Fortran Compiler: gfortran</li>
+</ul>
+<ol type="1" start="3">
+<li>Use the MPI compiler wrappers to build MPI code: <code>mpicc</code>, <code>mpicxx</code>, <code>mpif90</code></li>
+</ol>
+<pre><code language="language-bash" class="language-bash">mpicc hello_world.c –o hello_world.x
+</code></pre>
+<h2 is-upgraded>To use Intel Compilers</h2>
+<ol type="1">
+<li>Load the modules by executing the following on the commandline</li>
+</ol>
+<pre><code language="language-bash" class="language-bash">module purge
+module load intel/2017.3.196
+</code></pre>
+<ol type="1" start="2">
+<li>Compiler invocation</li>
+</ol>
+<ul>
+<li>C Compiler: <code>icc</code></li>
+<li>C++ Compiler: icpc</li>
+<li>Fortran Compiler: ifort</li>
+</ul>
+<ol type="1" start="3">
+<li>Use the MPI compiler wrappers to build MPI code: <code>mpiicc</code>, <code>mpiicxx</code>, <code>mpiifort</code></li>
+</ol>
+<pre><code language="language-bash" class="language-bash">mpiicc hello_world.c –o hello_world.x
+</code></pre>
+<h2 is-upgraded>Modifying build process through environment variables</h2>
+<p>Some package build systems conform to convention and can autodetect compilers and optimization flags based on environment settings.</p>
+<pre>#Some influential environment variables:
+#  CC          C compiler command
+#  CFLAGS      C compiler flags
+#  LDFLAGS     linker flags, e.g. -L&lt;lib dir&gt; if you have libraries in a
+#              nonstandard directory &lt;lib dir&gt;
+#  LIBS        libraries to pass to the linker, e.g. -l&lt;library&gt;
+#  CPPFLAGS    (Objective) C/C++ preprocessor flags, e.g. -I&lt;include dir&gt; if
+#              you have headers in a nonstandard directory &lt;include dir&gt;
+#  CPP         C preprocessor
+#  CXX         C++ compiler command
+#  CXXFLAGS    C++ compiler flags
+#  CXXCPP      C++ preprocessor
+#  CCAS        assembler compiler command (defaults to CC)
+#  CCASFLAGS   assembler compiler flags (defaults to CFLAGS)
+#  FC          Fortran compiler command
+#  FCFLAGS     Fortran compiler flags
+</pre>
+<p>You use the standard syntax for setting environment variables, such as</p>
+<pre><code language="language-bash" class="language-bash">export CC=icc
+export CFLAGS= -O3 -Xhost
+</code></pre>
+<p>The best way to learn how to build packages is to look at some examples. CRC builds packages under <code>/ihome/crc/build</code>. We might already have a build script for your packae of interest.</p>
+<pre><code language="language-bash" class="language-bash">[gnowmik@login1 ~]$ ls /ihome/crc/build
+abaqus         comsol         g09             ipc                   macs              nodejs                power9           sprng
+abinit         cp2k           gamess          itk                   magma             nvidia-hpc-sdk        proj             sra-toolkit
+adf            cuba           gaussian        jaaba                 make              nv_peer_memory        prospector       stack
+afni           cuda           gcc             jansson               materials_studio  nvshmem               protobuf         stata
+amber          cudnn          gcmcore         java                  mathematica       octave                psi4             stringtie
+amd            curl           gdma            jdftx                 matio             openbabel             pymultinest      subread
+ansys          cutorch        gdrcopy         jmol                  matlab            openblas              pymvpa           suitesparse
+ansysem        cweb           geos            jsilverstein          matlab-mcr        opencl                python           tensorflow
+ants           damask         gibbon          julia                 matpower          opencv                python-fsps      tensorflow-1.3
+armadillo      dcm2niix       git             kaldi                 maven             openfoam              python-hostlist  texlive
+arpack         deeplabcut     githubcli       kallisto              medea             openmm                qat3d            tinker
+ARPACK         deeptools      glew            kentutils             mesa              openmolcas            qchem            tmux
+ase            deviceQuery    glib            kpp                   metis             openmpi               qt               tokyo
+autodock_vina  doxygen        glibc           lammps                mgltools          orca                  quantumespresso  torch
+bagpipes       dynare         gmsh            lapack                mlnx_ofed         osss-ucx              r                trilinos
+basemap        eigen          go              latex                 molden            osu-micro-benchmarks  rdkit            turbomole
+bash           elpa           googletest      lcov                  molecularGSM      p4vasp                regina           ucx
+bats           expat          gpaw            leap                  molpro            packmol               rsem             valgrind
+bazel          fastqc         gperf           libdb                 mongodb           parallel              rstudio-server   vasp
+bcftools       fastx          grace           libevent              mopac             paraview              s4               vcftools
+bedtools       fastx-toolkit  graphviz        libfabric             mosek             parmetis              sage             vim
+berkeleygw     fdtd           gromacs         libfaketime           mpich3            parsplice             samtools         virtuoso
+bison          febio          gsl             libgtextutils         mricrogl          pcre                  sas              virtuoso-opensource
+blas           ffmpeg         GSM             libjpeg               mrtrix3           pcre2                 scala            visit
+blender        fftw           gsmnew          libpng                multinest         pdftools              schrodinger      vlsi
+boost          fhi-aims       gtk             libtiff               mumax             pedcheck              scons            vmd
+bowtie2        fish           gulp            libxc                 mvapich           perl                  sdv              vscode
+bzip2          flex           gurobi          libxml2               namd              petsc                 sedpy            vtk
+cadence        fontconfig     hdf5            libxsmm               nano              pgi                   shcoll           westpa
+cadical        fpga           hisat2          libzmq                nauty             plotjuggler           siesta           wine
+caffe          fqtrim         homer           lightGBM              nccl              plumed                singularity      xfce
+cantera        freefem        hpl             list_of_packages.txt  nektar++          pmix                  slurm            xilinx
+cfitsio        freesurfer     hypre           lmod                  neovim            poltype               sox              xtb
+charm++        fsl            imagemagick     lua                   netcdf            poppler               spark            xz
+clang          fsleyes        intel           luarocks              netpbm            popt                  sparrow          zlib
+cmake          fusioncatcher  intelopa-basic  lumerical             neuron            povray                spm
+</code></pre>
+<h2 is-upgraded>How do I install R packages?</h2>
+<p>First you load R and start an interactive session. You can use the same commands as you do on your own laptop to install R libraries, namely through the standard <code>install.packages( )</code> syntax. The packages will automatically be installed under your $HOME.</p>
+<pre><code language="language-bash" class="language-bash">[gnowmik@login0 ~]$ module load gcc/8.2.0
+[gnowmik@login0 ~]$ module load r/3.5.2
+[gnowmik@login0 ~]$ R
+
+R version 3.5.2 (2018-12-20) -- &#34;Eggshell Igloo&#34;
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type &#39;license()&#39; or &#39;licence()&#39; for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type &#39;contributors()&#39; for more information and
+&#39;citation()&#39; on how to cite R or R packages in publications.
+
+Type &#39;demo()&#39; for some demos, &#39;help()&#39; for on-line help, or
+&#39;help.start()&#39; for an HTML browser interface to help.
+Type &#39;q()&#39; to quit R.
+
+[Previously saved workspace restored]
+
+&gt; library(stats)
+&gt; library(EpiModel)
+Error in library(EpiModel) : there is no package called ‘EpiModel&#39;
+&gt; install.packages(&#34;EpiModel&#34;, dependencies = TRUE)
+Warning in install.packages(&#34;EpiModel&#34;, dependencies = TRUE) :
+  &#39;lib = &#34;/ihome/crc/install/gcc-8.2.0/r/3.5.2/lib64/R/library&#34;&#39; is not writable
+Would you like to use a personal library instead? (yes/No/cancel) yes
+Would you like to create a personal library
+‘~/R/x86_64-pc-linux-gnu-library/3.5&#39;
+to install packages into? (yes/No/cancel) yes
+--- Please select a CRAN mirror for use in this session ---
+Secure CRAN mirrors
+
+ 1: 0-Cloud [https]                   2: Algeria [https]
+ 3: Australia (Canberra) [https]      4: Australia (Melbourne 1) [https]
+</code></pre>
+<h2 is-upgraded>How do I install Python packages?</h2>
+<pre><code language="language-bash" class="language-bash">[gnowmik@login1 ~]$ module purge
+[gnowmik@login1 ~]$ module load python/anaconda3.6-5.2.0
+[gnowmik@login1 ~]$ which python
+/ihome/crc/install/python/anaconda3.6-5.2.0/bin/python
+[gnowmik@login1 ~]$ conda create -n mypython python=3.6
+Collecting package metadata: done
+Solving environment: done
+... 
+## Package Plan ##
+
+  environment location: /ihome/kwong/gnowmik/.conda/envs/mypython
+
+  added / updated specs:
+    - python=3.6
+
+The following NEW packages will be INSTALLED:
+
+  ca-certificates    pkgs/main/linux-64::ca-certificates-2019.1.23-0
+  certifi            pkgs/main/linux-64::certifi-2018.11.29-py36_0
+  libedit            pkgs/main/linux-64::libedit-3.1.20181209-hc058e9b_0
+...
+  openssl            pkgs/main/linux-64::openssl-1.1.1a-h7b6447c_0
+  xz                 pkgs/main/linux-64::xz-5.2.4-h14c3975_4
+  zlib               pkgs/main/linux-64::zlib-1.2.11-h7b6447c_3
+
+Proceed ([y]/n)? y
+
+Preparing transaction: done
+Verifying transaction: done
+Executing transaction: done
+#
+# To activate this environment, use
+#
+#     $ conda activate mypython
+#
+# To deactivate an active environment, use
+#
+#     $ conda deactivate
+</code></pre>
+<pre><code language="language-bash" class="language-bash">[gnowmik@login1 ~]$ conda activate mypython
+(mypython) [gnowmik@login1 ~]$ which python
+~/.conda/envs/mypython/bin/python
+(mypython) [gnowmik@login1 ~]$ conda list
+# packages in environment at /ihome/kwong/gnowmik/.conda/envs/mypython:
+#
+# Name                    Version                   Build  Channel
+ca-certificates           2019.1.23                     0
+certifi                   2018.11.29               py36_0
+libedit                   3.1.20181209         hc058e9b_0
+libffi                    3.2.1                hd88cf55_4
+libgcc-ng                 8.2.0                hdf63c60_1
+libstdcxx-ng              8.2.0                hdf63c60_1
+ncurses                   6.1                  he6710b0_1
+openssl                   1.1.1a               h7b6447c_0
+pip                       19.0.1                   py36_0
+
+(mypython) [gnowmik@login1 ~]$ conda install numpy
+Collecting package metadata: done
+Solving environment: done
+
+## Package Plan ##
+
+  environment location: /ihome/kwong/gnowmik/.conda/envs/mypython
+
+  added / updated specs:
+    - numpy
+
+The following NEW packages will be INSTALLED:
+
+  blas               pkgs/main/linux-64::blas-1.0-mkl
+  intel-openmp       pkgs/main/linux-64::intel-openmp-2019.1-144
+  libgfortran-ng     pkgs/main/linux-64::libgfortran-ng-7.3.0-hdf63c60_0
+  mkl                pkgs/main/linux-64::mkl-2019.1-144
+  mkl_fft            pkgs/main/linux-64::mkl_fft-1.0.10-py36ha843d7b_0
+  mkl_random         pkgs/main/linux-64::mkl_random-1.0.2-py36hd81dba3_0
+  numpy              pkgs/main/linux-64::numpy-1.15.4-py36h7e9f1db_0
+  numpy-base         pkgs/main/linux-64::numpy-base-1.15.4-py36hde5b4d6_0
+
+
+Proceed ([y]/n)?
+
+Preparing transaction: done
+Verifying transaction: done
+Executing transaction: done
+(mypython) [gnowmik@login1 ~]$ conda list
+# packages in environment at /ihome/kwong/gnowmik/.conda/envs/mypython:
+#
+# Name                    Version                   Build  Channel
+blas                      1.0                         mkl
+ca-certificates           2019.1.23                     0
+certifi                   2018.11.29               py36_0
+intel-openmp              2019.1                      144
+libedit                   3.1.20181209         hc058e9b_0
+libffi                    3.2.1                hd88cf55_4
+libgcc-ng                 8.2.0                hdf63c60_1
+libgfortran-ng            7.3.0                hdf63c60_0
+libstdcxx-ng              8.2.0                hdf63c60_1
+mkl                       2019.1                      144
+mkl_fft                   1.0.10           py36ha843d7b_0
+mkl_random                1.0.2            py36hd81dba3_0
+ncurses                   6.1                  he6710b0_1
+numpy                     1.15.4           py36h7e9f1db_0
+numpy-base                1.15.4           py36hde5b4d6_0
+openssl                   1.1.1a               h7b6447c_0
+pip                       19.0.1                   py36_0
+python                    3.6.8                h0371630_0
+readline                  7.0                  h7b6447c_5
+setuptools                40.8.0                   py36_0
+sqlite                    3.26.0               h7b6447c_0
+tk                        8.6.8                hbc83047_0
+wheel                     0.32.3                   py36_0
+xz                        5.2.4                h14c3975_4
+zlib                      1.2.11               h7b6447c_3
+(mypython) [gnowmik@login1 ~]$ conda deactivate
+[gnowmik@login1 ~]$
+
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Bash scripting" duration="0">
+        <h2 is-upgraded>This is the syntax for the <em>for loop construct</em> in <code>bash</code></h2>
+<pre><code language="language-bash" class="language-bash">[gnowmik@login1 ~]$ for i in `seq 1 2 10`; do echo $i; done
+1
+3
+5
+7
+9
+</code></pre>
+<p>An example where I use the bash for loop in my research</p>
+<pre><code language="language-code" class="language-code">#!/bin/bash
+
+HERE=`pwd`
+
+ZZZ=( \
+      HOAG_0.00_2016-SHIELD.DECOL-LESLIE_CRE-fLTAC_CP-ALLH \
+      HOAG_0.00_2016-SHIELD.DECOL-LESLIE_CRE_ALL-HOSP-fLTAC_CP-ALLH \
+      HOAG_0.00_2016-SHIELD.DECOL-LESLIE_CRE_HOSP-ONLY-fLTAC_CP-ALLH \
+      HOAG_0.00_2016-SHIELD.DECOL-LESLIE_CRE_NH-ONLY-fLTAC_CP-ALLH \
+    )
+
+FILES1=( SHIELD-CP_days_traj_HOSP.xls \
+         SHIELD-CP_days_traj_NH.xls \
+         SHIELD-CP_days_traj_ICU.xls \
+         SHIELD-CP_days_traj_COUNTY-AVRG.xls )
+
+BASE_DIR=ZZZ_FOR_SARAH-2
+
+mkdir -p $HERE/ZZZ_SUMMARY.CP-Days
+cd $HERE/ZZZ_SUMMARY.CP-Days
+
+for z in &#34;${ZZZ[@]}&#34;
+do
+
+   for x in &#34;${FILES1[@]}&#34;
+   do
+      ln -sf $HERE/d$z/$BASE_DIR/v$x $z&#34;_&#34;v$x
+   done
+
+done
+</code></pre>
+<h2 is-upgraded>This is the syntax for the <em>while loop construct</em></h2>
+<pre><code language="language-bash" class="language-bash">#!/bin/bash
+COUNTER=0
+while [  $COUNTER -lt 10 ]; do
+   echo The counter is $COUNTER
+   COUNTER=$(($COUNTER+1))
+done
+</code></pre>
+<p>An example from my own research</p>
+<pre><code language="language-code" class="language-code">#!/bin/bash
+HOSP=( AGEN AMMC CHAP CHOC CMIS COAS COLL FVRH GGMC HBHO \
+       WMCA WMCS )
+MEND=$(echo &#34;scale=0;( $EPREV - $BPREV ) / $PREV_STEP&#34; | bc)
+N=0
+NEND=${#HOSP[@]}
+
+while [ $N -lt $NEND ]; do
+
+   PPREV=$(echo &#34;scale=2; $BPREV - $PREV_STEP &#34; | bc | awk &#39;{printf &#34;%.2f&#34;, $0}&#39;)
+   M=0
+   while [ $M -le $MEND ]; do
+      PREV=$(echo &#34;scale=2; $PPREV + $PREV_STEP &#34; | bc | awk &#39;{printf &#34;%.2f&#34;, $0}&#39;)
+      sed -e &#34;s/HOSP_NAME/${HOSP[$N]}/g&#34;           $INP_TMPL             &gt; $INP_TMPL.${HOSP[$N]}
+      sed -e &#34;s/PREV_VAL/$PREV/g&#34;                  $INP_TMPL.${HOSP[$N]} &gt; $INP_TMPL.${HOSP[$N]}_$PREV
+
+      mkdir -p $RESULTS/${HOSP[$N]}_$PREV$TAG&#34;_SET-&#34;$k
+      cd $RESULTS/${HOSP[$N]}_$PREV$TAG&#34;_SET-&#34;$k
+      mv ../../$INP_TMPL.${HOSP[$N]}_$PREV MRSA.INPUT
+      cp ../../$TALI_ICU .
+      cp ../../../../build_$BUILD_TYPE/$EXE .
+
+      mpirun -n $SLURM_NTASKS ./$EXE &gt;&amp; mrsa.log_mpi
+
+      cd $WORKDIR/$RESULTS/${HOSP[$N]}_$PREV$TAG&#34;_SET-&#34;$k
+      cd ../../
+
+      M=$(( $M + 1 ))
+      PPREV=$PREV
+   done
+
+   N=$(( $N + 1 ))
+
+done
+</code></pre>
+<p>In the above script, what exactly is the following line doing?</p>
+<pre><code language="language-code" class="language-code">sed -e &#34;s/HOSP_NAME/${HOSP[$N]}/g&#34;           $INP_TMPL             &gt; $INP_TMPL.${HOSP[$N]}
+</code></pre>
+<p><code>sed</code> is a stream editor for filtering and transforming text. The above line searches for a string and replaces it with another string. This command is useful for creating a generic input template and creating specific inputs files from that. Here is a better usage of sed, which performs the search/replace inplace instead of creating temporary files</p>
+<pre><code language="language-code" class="language-code">sed -i&#39;&#39; s/replace_text/with_this/g input_template.txt
+</code></pre>
+<h2 is-upgraded>Syntax for simple arithmatic</h2>
+<pre><code language="language-code" class="language-code">M=0
+   while [ $M -le $MEND ]; do
+      ...
+      M=$(( $M + 1 ))
+done
+
+</code></pre>
+<h2 is-upgraded>Syntax for variable assignment</h2>
+<pre><code language="language-code" class="language-code">HOSP=( AGEN AMMC CHAP CHOC CMIS COAS COLL FVRH GGMC HBHO \
+       WMCA WMCS )
+
+N=0
+</code></pre>
+<h2 is-upgraded>What is meant by <code>${#HOSP[@]}</code>?</h2>
+<pre><code language="language-code" class="language-code">NEND=${#HOSP[@]}
+</code></pre>
+<h2 is-upgraded>What is meant by <code>${ZZZ[@]}</code>?</h2>
+<pre><code language="language-code" class="language-code">for z in &#34;${ZZZ[@]}&#34;
+do
+   ...
+done
+</code></pre>
+<p>We have encounter the bash <em>for loop construct</em> before. This syntax refers to the array elements within the variable <code>HOSP</code>.</p>
+<h2 is-upgraded>Syntax for arithmatic relational operators</h2>
+<pre><code language="language-code" class="language-code">   -lt (&lt;)            : less than
+   -gt (&gt;)            : greater than
+   -le (&lt;=)           : less than or equal to
+   -ge (&gt;=)           : greater than or equal to
+   -eq (==)           : equal to
+   -ne (!=)           : not equal to
+</code></pre>
+<h2 is-upgraded>Syntax for arithmatic operators</h2>
+<pre><code language="language-code" class="language-code">	 +            : add
+	 -            : subtract
+	 *            : multiply
+	 /            : divide
+ 	 %            : remainder
+</code></pre>
+<h2 is-upgraded>Syntax for an <em>if conditional statement</em> (rarely used in my research)</h2>
+<pre><code language="language-code" class="language-code">#!/bin/bash
+if [ &#34;bar&#34; = &#34;bar&#34; ]; then
+   echo bar is bar
+fi
+</code></pre>
+<h2 is-upgraded>Syntax for an <em>if-else conditional statement</em></h2>
+<pre><code language="language-code" class="language-code">#!/bin/bash
+if [ &#34;foo&#34; = &#34;bar&#34; ]; then
+   echo foo equals to bar
+else
+   echo foo is not equal to bar
+fi   
+</code></pre>
+<h2 is-upgraded>Syntax for an <em>if-else if conditional statement</em></h2>
+<pre><code language="language-code" class="language-code">#!/bin/bash
+# This script will test if we&#39;re in a leap year or not.
+
+year=`date +%Y`
+
+if [ $[$year % 400] -eq &#34;0&#34; ]; then
+   echo &#34;This is a leap year.  February has 29 days.&#34;
+elif [ $[$year % 4] -eq 0 ]; then
+   if [ $[$year % 100] -ne 0 ]; then
+      echo &#34;This is a leap year, February has 29 days.&#34;
+   else
+      echo &#34;This is not a leap year.  February has 28 days.&#34;
+   fi
+else
+   echo &#34;This is not a leap year.  February has 28 days.&#34;
+fi
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Where to find help" duration="0">
+        <ul>
+<li>Main Documentation</li>
+</ul>
+<p><a href="https://crc.pitt.edu/resources/h2p-user-guide" target="_blank">https://crc.pitt.edu/resources/h2p-user-guide</a></p>
+<ul>
+<li>Requesting help via online ticketing system (need to log in using Pitt credentials)</li>
+</ul>
+<p><a href="https://crc.pitt.edu/tickets" target="_blank">https://crc.pitt.edu/tickets</a></p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
